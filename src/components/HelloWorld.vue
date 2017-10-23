@@ -17,11 +17,11 @@
 
 <script>
 // meta todo:
+// mock up a UI that makes it more self explanatory to others
 // might want a +1 day
-// deploy to gh-pages
 // -- MVP: i can use it --
 // break things up into components to understand events / data
-// make it more self explanatory to others
+
 // show time things are due if it's the same day as today
 // indicate things that are overdue or near due
 
@@ -100,52 +100,3 @@ export default {
   }
 }
 </script>
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-ul {
-  text-align: left;
-  margin: 2em 15vw;
-}
-
-li {
-  list-style-type: none;
-}
-
-h1 {
-  margin: 1em 0 0 0;
-  font-size: 7vw;
-  text-transform: uppercase;
-}
-
-.due {
-  font-size: .8em;
-  color: white;
-  background: darkgrey;
-  border: none;
-  border-radius: 4px;
-  padding: .2em .5em;
-}
-
-p { 
-  margin: 0;
-  padding: 0 0 3em 0;
-  font-size: 1em;
-}
-
-.entry {
-  padding: 0 0.3em;
-  height: 1.7em;
-  width: 59vw;
-  font-size: 1.5em;
-  border-radius: 5px;
-  box-shadow: none;
-}
-
-.strikethrough {
-  text-decoration: line-through;
-}
-
-</style>
