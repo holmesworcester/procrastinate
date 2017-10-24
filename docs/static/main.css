@@ -1,0 +1,98 @@
+#app {
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 80%;
+  text-align: center;
+}
+
+h1 {
+  margin: 1em 0 0 0;
+  font-size: 7vw;
+  text-transform: uppercase;
+}
+
+.hero {
+	  margin-bottom: 40px;
+}
+
+.hero p {
+	margin: 0;
+}
+
+.entryform {
+   max-width: 700px;
+   margin: 0px auto;
+}
+
+.form-field {
+  padding: 0 0.3em;
+  height: 1.7em;
+  width: 100%;
+  font-size: 1.5em;
+  border-radius: 5px;
+}
+
+.example {
+	text-align: left;
+	font-style: italic;
+	margin-top: 5px;
+	opacity: 0.4
+}
+
+.todos {
+	text-align: left;
+	margin: 0 5%;
+}
+
+ul {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+li {
+	text-align: inherit;
+	list-style-type: none;
+}
+
+
+.due {
+  font-size: .8em;
+  color: white;
+  background: darkgrey;
+  border: none;
+  border-radius: 4px;
+  padding: .2em .5em;
+}
+
+.procrastinate {
+  border: none;
+  background: inherit;
+  text-decoration: underline;
+  font-size: inherit;
+  color: #ffcaca;
+}
+
+.procrastinate:hover {
+  background: #ffcaca;
+  color: white;
+  text-decoration: none;
+}
+
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: pink;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: pink;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: pink;
+}
