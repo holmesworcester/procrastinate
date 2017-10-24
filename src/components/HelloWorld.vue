@@ -10,14 +10,16 @@
   </div>
   <div class="todos">
     <!-- This section should get broken out into its own module as well if I show multiple lists --> 
-    <h2>Todos</h2>
+    <h2 v-if="todos.length">Todo:</h2>
     <ul>
       <li v-for="todo in allTodosByDate">
         <!-- This section should get broken out into its own module -->
         <span>
           <input class="toggle" type="checkbox" v-model="todo.done">
-          <button class="due" v-if="todo.due" @click="procrastinate(todo.key)">due {{ formatDate(todo.due) }}</button>
+          <span class="due" v-if="todo.due">{{ formatDate(todo.due) }}</span>
         <span v-bind:class = "{ strikethrough: todo.done }">{{ todo.text }}</span>
+        <button v-if="todo.due" class="procrastinate" @click="procrastinate(todo.key, 1)">+1 day</button>
+        <button v-if="todo.due" class="procrastinate" @click="procrastinate(todo.key, 3)">+3 days</button>
       </span>
       </li>
     </ul>
@@ -29,6 +31,8 @@
 // meta todo:
 // mock up a UI that makes it more self explanatory to others
 // might want a +1 day
+// make a display for today / tomorrow / late
+// color code it. 
 // strip out "for" and "by" when it comes before dates
 // -- MVP: i can use it --
 // break things up into components to understand events / data
@@ -44,7 +48,7 @@ var _ = require('lodash')
 // import Todo from './Todo.vue'
 
 // localStorage persistence (from the todoMVC example)
-var STORAGE_KEY = 'procrastinate'
+var STORAGE_KEY = 'procrastinate2'
 var todoStorage = {
   fetch: function () {
     var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
@@ -100,8 +104,8 @@ export default {
       return moment(aDate).format('MM/DD')
     },
     // bumps a todo's due date forward 3 days
-    procrastinate: function (key) {
-      this.todos[key].due = moment(this.todos[key].due).add(3, 'days')
+    procrastinate: function (key, days) {
+      this.todos[key].due = moment(this.todos[key].due).add(days, 'days')
     }
   },
   computed: {
