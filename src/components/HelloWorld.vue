@@ -2,25 +2,27 @@
   <div class="hello">
     <div class="hero">
     <h1>Procrastinate</h1>
-    <p>The todo list for real life...</p>
   </div>
     <div class="entryform">
-    <input class="form-field" type="text" ref="todoField" v-model="entry" @keydown.enter="addTodo" placeholder="Enter your todos here, with due dates!">
-    <p class="example">E.g. "Buy bread today", "Get presents December 24th", "Finish prototype by next Friday"</p>
+    <input class="form-field" type="text" ref="todoField" v-model="entry" @keydown.enter="addTodo" placeholder="Enter todos w/ duedates, e.g. finish project by Friday">
   </div>
   <div class="todos">
     <!-- This section should get broken out into its own module as well if I show multiple lists --> 
-    <h2 v-if="todos.length">Todo:</h2>
     <ul>
       <li v-for="todo in allTodosByDate">
         <!-- This section should get broken out into its own module -->
-        <span>
-          <input class="toggle" type="checkbox" v-model="todo.done">
-          <span class="due" v-if="todo.due">{{ formatDate(todo.due) }}</span>
+        <button class="hyphen no-select" @click="toggleDone(todo.key)"> - </button>
         <span v-bind:class = "{ strikethrough: todo.done }">{{ todo.text }}</span>
-        <button v-if="todo.due" class="procrastinate" @click="procrastinate(todo.key, 1)">+1 day</button>
-        <button v-if="todo.due" class="procrastinate" @click="procrastinate(todo.key, 3)">+3 days</button>
+        <span class="date-controls">
+        <span v-if="todo.due && !todo.done">
+          <span class="due">{{ formatDate(todo.due) }}</span>
+        <span class="procrastinate">
+        <button v-if="todo.due" @click="procrastinate(todo.key, 1)">+24h</button>
+        <button v-if="todo.due" @click="procrastinate(todo.key, 3)">+3d</button>
+        <button v-if="todo.due" @click="procrastinate(todo.key, 7)">+1w</button>
       </span>
+    </span>
+  </span>
       </li>
     </ul>
   </div>
@@ -29,16 +31,24 @@
 
 <script>
 // meta todo:
+// will look better if I turn the checkbox into a line (like taskpaper)
+// if you name a day this week that has already past, it currently sets the date to this week. it should say next week.
+// use a better index for todos so that that doesn't get messed up. 
 // mock up a UI that makes it more self explanatory to others
 // might want a +1 day
-// make a display for today / tomorrow / late
+// make a display for today / tomorrow / late so I don't need to display the date
+// display the controls on rollover
+// try it a few different ways
 // color code it. 
 // strip out "for" and "by" when it comes before dates
+// maybe make an "on" and "by" distinction
 // -- MVP: i can use it --
 // break things up into components to understand events / data
 // consider using a UI toolkit and getting comfortable with it
 // show time things are due if it's the same day as today
 // indicate things that are overdue or near due
+// make the padding consistent for items with due dates and without so they don't shift.
+// get rid of focus highlighting
 
 var chrono = require('chrono-node')
 var moment = require('moment')
@@ -94,6 +104,7 @@ export default {
         'text': text,
         'due': date,
         // gives every todo a unique key (I think this works)
+        // no this doesn't work if you're removing todos. it needs to be some number that just keeps incrementing for ever and can never go down and gets saved when you save things. 
         'key': this.todos.length,
         'done': false
       })
@@ -106,6 +117,13 @@ export default {
     // bumps a todo's due date forward 3 days
     procrastinate: function (key, days) {
       this.todos[key].due = moment(this.todos[key].due).add(days, 'days')
+    },
+    toggleDone: function (key) {
+      if (this.todos[key].done) {
+        this.todos[key].done = false
+      } else {
+        this.todos[key].done = true
+      }
     }
   },
   computed: {
